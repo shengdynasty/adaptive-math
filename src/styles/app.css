@@ -1,0 +1,484 @@
+/* ==================================================================
+   ADAPTIVE MATH — STYLESHEET
+   ------------------------------------------------------------------
+   Design direction: clean, modern indigo/blue theme. High contrast
+   on small screens, responsive from 360px up. Progress and feedback
+   are visually immediate so students know exactly where they stand.
+
+   Fonts: Inter for UI chrome (clean, readable at small sizes);
+   Lora for question prompts (a warmer serif that reads well for math).
+   Both fall back gracefully if offline on first paint.
+   ================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600&display=swap');
+
+:root {
+  --bg:           #f0f4ff;
+  --bg-deep:      #dde4f7;
+  --ink:          #1a1f4b;
+  --ink-soft:     #4a527a;
+  --primary:      #3d52d5;
+  --primary-soft: #8898f5;
+  --primary-dim:  rgba(61, 82, 213, 0.12);
+  --accent:       #f77f00;
+  --accent-soft:  #ffaa55;
+  --correct:      #10864a;
+  --correct-bg:   rgba(16, 134, 74, 0.09);
+  --correct-bdr:  rgba(16, 134, 74, 0.35);
+  --wrong:        #c92c2c;
+  --wrong-bg:     rgba(201, 44, 44, 0.08);
+  --wrong-bdr:    rgba(201, 44, 44, 0.3);
+  --card:         #ffffff;
+  --shadow-sm:    0 2px 8px rgba(26, 31, 75, 0.09);
+  --shadow-md:    0 4px 18px rgba(26, 31, 75, 0.12);
+  --radius-sm:    10px;
+  --radius-md:    14px;
+  --radius-lg:    18px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--bg);
+  background-image: radial-gradient(var(--bg-deep) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--ink);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 3rem;
+  min-height: 100vh;
+}
+
+.loading {
+  text-align: center;
+  padding: 4rem 1rem;
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+}
+
+/* --- Header -------------------------------------------------------- */
+.app-header {
+  text-align: center;
+  margin: 0.5rem 0 1.6rem;
+}
+
+.app-header h1 {
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 600;
+  font-size: 2.2rem;
+  letter-spacing: -0.02em;
+  color: var(--primary);
+}
+
+.tagline {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-top: 0.2rem;
+}
+
+/* --- Offline badge ------------------------------------------------- */
+.offline-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: 'Inter', system-ui, sans-serif;
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+  border: 1.5px solid currentColor;
+  letter-spacing: 0.01em;
+}
+
+.offline-badge.is-online  { color: var(--ink-soft); }
+.offline-badge.is-offline { color: var(--accent); }
+
+.offline-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* --- Buttons ------------------------------------------------------- */
+.btn {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.97rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.72rem 1.4rem;
+  cursor: pointer;
+  transition: background 0.12s ease, transform 0.07s ease;
+}
+
+.btn:hover  { background: #2d42c0; }
+.btn:active { transform: translateY(1px); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--bg-deep);
+}
+
+.btn-ghost:hover {
+  background: var(--bg-deep);
+  color: var(--ink);
+}
+
+.btn-danger {
+  color: var(--wrong);
+  border-color: var(--wrong-bdr);
+}
+
+.btn-danger:hover {
+  background: var(--wrong-bg);
+  color: var(--wrong);
+}
+
+/* --- Dashboard ----------------------------------------------------- */
+.dashboard-intro {
+  text-align: center;
+  color: var(--ink-soft);
+  margin-bottom: 1.4rem;
+  font-size: 0.97rem;
+}
+
+.dashboard-summary {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+}
+
+.summary-chip {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--primary);
+  background: var(--primary-dim);
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+}
+
+.skill-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.skill-button {
+  width: 100%;
+  text-align: left;
+  background: var(--card);
+  border: 1.5px solid var(--bg-deep);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.1rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.1s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.skill-button:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary-soft);
+  box-shadow: var(--shadow-md);
+}
+
+.skill-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.skill-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.skill-name {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink);
+  flex: 1;
+}
+
+.mastery-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--correct);
+  border: 1.5px solid var(--correct-bdr);
+  border-radius: 999px;
+  padding: 0.15rem 0.55rem;
+  white-space: nowrap;
+  background: var(--correct-bg);
+}
+
+.skill-progress { margin: 0.55rem 0 0.35rem; }
+
+.skill-progress-track {
+  height: 7px;
+  background: var(--bg-deep);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.skill-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-soft), var(--primary));
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.skill-meta {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+
+.dashboard-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-top: 1.8rem;
+  flex-wrap: wrap;
+}
+
+.dashboard-actions .btn {
+  font-size: 0.82rem;
+  padding: 0.45rem 0.85rem;
+}
+
+/* --- Practice ------------------------------------------------------ */
+.practice-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.9rem;
+}
+
+.practice-top .btn-ghost {
+  font-size: 0.82rem;
+  padding: 0.32rem 0.65rem;
+}
+
+.practice-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.skill-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.streak-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(247, 127, 0, 0.1);
+  border: 1.5px solid rgba(247, 127, 0, 0.3);
+  border-radius: 999px;
+  padding: 0.15rem 0.5rem;
+  animation: pop 0.2s ease;
+}
+
+@keyframes pop {
+  0%   { transform: scale(0.8); }
+  60%  { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+.rating-bar {
+  height: 9px;
+  background: var(--bg-deep);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 1.2rem;
+}
+
+.rating-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-soft), var(--primary));
+  border-radius: 999px;
+  transition: width 0.5s ease;
+}
+
+.question-card {
+  background: var(--card);
+  border: 1.5px solid var(--bg-deep);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.3rem;
+  box-shadow: var(--shadow-md);
+}
+
+.question-prompt {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 1.3rem;
+  color: var(--ink);
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-bottom: 1.2rem;
+}
+
+.choice {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: left;
+  background: var(--bg);
+  border: 1.5px solid var(--bg-deep);
+  border-radius: var(--radius-sm);
+  padding: 0.72rem 1rem;
+  cursor: pointer;
+  color: var(--ink);
+  transition: border-color 0.1s ease, background 0.1s ease;
+}
+
+.choice:hover:not(:disabled) {
+  border-color: var(--primary-soft);
+  background: var(--primary-dim);
+}
+
+.choice-selected {
+  border-color: var(--primary);
+  background: var(--primary-dim);
+  color: var(--primary);
+}
+
+.answer-input {
+  width: 100%;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  padding: 0.72rem 0.9rem;
+  border: 1.5px solid var(--bg-deep);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--ink);
+  margin-bottom: 1.2rem;
+  transition: border-color 0.12s ease;
+}
+
+.answer-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: var(--card);
+}
+
+/* --- Feedback ------------------------------------------------------ */
+.feedback {
+  margin-top: 1.2rem;
+  padding: 1rem 1.1rem;
+  border-radius: var(--radius-md);
+  animation: rise 0.22s ease;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.feedback-correct {
+  background: var(--correct-bg);
+  border: 1.5px solid var(--correct-bdr);
+}
+
+.feedback-wrong {
+  background: var(--wrong-bg);
+  border: 1.5px solid var(--wrong-bdr);
+}
+
+.feedback-headline {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+}
+
+.feedback-correct .feedback-headline { color: var(--correct); }
+.feedback-wrong   .feedback-headline { color: var(--wrong); }
+
+.feedback-explanation { margin-bottom: 0.5rem; font-size: 0.97rem; }
+
+.feedback-answer {
+  margin-bottom: 0.8rem;
+  color: var(--ink-soft);
+  font-size: 0.93rem;
+}
+
+.done-message {
+  text-align: center;
+  font-size: 1.1rem;
+  margin: 2rem 0 1.5rem;
+  color: var(--ink-soft);
+}
+
+/* --- Mastery overlay ----------------------------------------------- */
+.mastery-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 31, 75, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 100;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.mastery-card {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.75rem;
+  text-align: center;
+  max-width: 360px;
+  width: 100%;
+  box-shadow: var(--shadow-md);
+  animation: rise 0.3s ease;
+}
+
+.mastery-card h2 {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.7rem;
+  color: var(--correct);
+  margin-bottom: 0.5rem;
+}
+
+.mastery-card p {
+  color: var(--ink-soft);
+  margin-bottom: 1.5rem;
+  font-size: 0.97rem;
+}
