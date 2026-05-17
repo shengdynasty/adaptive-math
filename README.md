@@ -126,8 +126,3 @@ path, so it works from any sub-path without configuration.
   online.
 - Add spoken-audio question prompts for low-literacy or visually impaired
   learners.
-
-## A note on tools used
-
-See `AI_USAGE.md` for a transparent record of where AI assistance was used
-in this project and what was built independently.
