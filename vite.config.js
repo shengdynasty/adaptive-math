@@ -20,7 +20,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 export default defineConfig({
   // Use a relative base so the app works on any static host /
   // sub-path (GitHub Pages, Netlify, etc.).
-  base: './',
+  base: '/adaptive-math/',
   plugins: [
     react(),
     VitePWA({
@@ -33,7 +33,7 @@ export default defineConfig({
         theme_color: '#0d3b66',
         background_color: '#fdf6e3',
         display: 'standalone',
-        start_url: './',
+        start_url: '/adaptive-math/',
         icons: [
           {
             src: 'icon-192.png',
